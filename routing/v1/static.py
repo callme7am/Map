@@ -14,7 +14,7 @@ async def index(request: Request):
 
 
 @router.get("/auth", response_class=HTMLResponse)
-async def index(request: Request):
+async def auth(request: Request):
     return templates.TemplateResponse("auth.html", {"request": request})
 
 

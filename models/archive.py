@@ -11,4 +11,3 @@ class QueryArchive(EntityMeta):
     query_text = Column(Text, nullable=False)
     timestamp = Column(Date, default=datetime.now)
     elapsed_time = Column(Float, nullable=False)
-

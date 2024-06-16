@@ -41,4 +41,3 @@ def login(credentials: HTTPBasicCredentials = Depends(security)):
 def read_secure_data(credentials: HTTPBasicCredentials = Depends(security)):
     username = authenticate_user(credentials)
     return {"message": f"Secure data for {username}"}
-

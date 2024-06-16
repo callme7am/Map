@@ -1,8 +1,7 @@
 from typing import Dict, Any
 
-from pydantic import BaseModel, validator, field_validator
+from pydantic import BaseModel
 
-from models.BaseModel import AbstractMap
 
 
 class CreateCommentOpts(BaseModel):

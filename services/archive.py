@@ -13,4 +13,6 @@ class ArchiveService:
         return await self._repo.list()
 
     async def create(self, opts: CreateQueryArchiveOpts) -> None:
-        await self._repo.create(QueryArchive(query_text=opts.text, elapsed_time=opts.elapsed_time))
+        await self._repo.create(
+            QueryArchive(query_text=opts.text, elapsed_time=opts.elapsed_time)
+        )

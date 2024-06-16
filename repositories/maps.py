@@ -1,5 +1,5 @@
 import time
-from typing import Sequence, List, cast
+from typing import Sequence, List
 
 from fastapi import Depends
 from geoalchemy2.functions import (
@@ -23,7 +23,11 @@ from services.archive import ArchiveService
 
 
 class MapRepository:
-    def __init__(self, db: AsyncSession = Depends(get_db_connection), archive_service: ArchiveService = Depends()):
+    def __init__(
+        self,
+        db: AsyncSession = Depends(get_db_connection),
+        archive_service: ArchiveService = Depends(),
+    ):
         self._db = db
         self._archive_service = archive_service
 
@@ -36,7 +40,9 @@ class MapRepository:
 
         elapsed_time = time.monotonic() - start_time
 
-        await self._archive_service.create(CreateQueryArchiveOpts(text=str(query), elapsed_time=elapsed_time))
+        await self._archive_service.create(
+            CreateQueryArchiveOpts(text=str(query), elapsed_time=elapsed_time)
+        )
 
         result = rows.scalars().first()
         if result:
@@ -67,7 +73,9 @@ class MapRepository:
 
         elapsed_time = time.monotonic() - start_time
 
-        await self._archive_service.create(CreateQueryArchiveOpts(text=str(query), elapsed_time=elapsed_time))
+        await self._archive_service.create(
+            CreateQueryArchiveOpts(text=str(query), elapsed_time=elapsed_time)
+        )
 
         result = rows.mappings().one()
 
@@ -99,7 +107,9 @@ class MapRepository:
 
         elapsed_time = time.monotonic() - start_time
 
-        await self._archive_service.create(CreateQueryArchiveOpts(text=str(query), elapsed_time=elapsed_time))
+        await self._archive_service.create(
+            CreateQueryArchiveOpts(text=str(query), elapsed_time=elapsed_time)
+        )
 
         results = rows.mappings().all()
 
@@ -128,7 +138,9 @@ class MapRepository:
 
         elapsed_time = time.monotonic() - start_time
 
-        await self._archive_service.create(CreateQueryArchiveOpts(text=str(query), elapsed_time=elapsed_time))
+        await self._archive_service.create(
+            CreateQueryArchiveOpts(text=str(query), elapsed_time=elapsed_time)
+        )
 
         result = rows.mappings().all()
 
@@ -145,7 +157,9 @@ class MapRepository:
 
         return result
 
-    async def filters(self, model: AbstractMap, opts: FilterOpts) -> Sequence[RowMapping]:
+    async def filters(
+        self, model: AbstractMap, opts: FilterOpts
+    ) -> Sequence[RowMapping]:
         fields = [
             ST_AsGeoJSON(column).label("geom")
             if str(column) == f"{model.__tablename__}.geom"
@@ -164,7 +178,6 @@ class MapRepository:
 
         for field, value in opts.filters.items():
             if hasattr(model, field):
-
                 filter_value = value
                 if isinstance(getattr(model, field).type, Integer):
                     filter_value = int(value)
@@ -181,7 +194,9 @@ class MapRepository:
 
         elapsed_time = time.monotonic() - start_time
 
-        await self._archive_service.create(CreateQueryArchiveOpts(text=str(query), elapsed_time=elapsed_time))
+        await self._archive_service.create(
+            CreateQueryArchiveOpts(text=str(query), elapsed_time=elapsed_time)
+        )
 
         results = rows.mappings().all()
 
@@ -198,7 +213,9 @@ class MapRepository:
 
         elapsed_time = time.monotonic() - start_time
 
-        await self._archive_service.create(CreateQueryArchiveOpts(text=str(query), elapsed_time=elapsed_time))
+        await self._archive_service.create(
+            CreateQueryArchiveOpts(text=str(query), elapsed_time=elapsed_time)
+        )
 
         results = rows.fetchall()
 
@@ -232,7 +249,9 @@ class MapRepository:
 
         elapsed_time = time.monotonic() - start_time
 
-        await self._archive_service.create(CreateQueryArchiveOpts(text=str(query), elapsed_time=elapsed_time))
+        await self._archive_service.create(
+            CreateQueryArchiveOpts(text=str(query), elapsed_time=elapsed_time)
+        )
 
         result = rows.scalars().all()
 
@@ -251,7 +270,9 @@ class MapRepository:
 
         elapsed_time = time.monotonic() - start_time
 
-        await self._archive_service.create(CreateQueryArchiveOpts(text=str(query), elapsed_time=elapsed_time))
+        await self._archive_service.create(
+            CreateQueryArchiveOpts(text=str(query), elapsed_time=elapsed_time)
+        )
 
         results = rows.mappings().all()
 

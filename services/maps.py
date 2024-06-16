@@ -1,14 +1,12 @@
 from typing import List, Sequence
 
 from fastapi import Depends
-from loguru import logger
 from sqlalchemy import RowMapping
 
 from models.BaseModel import AbstractMap
 from models.maps import ZU
 from repositories.maps import MapRepository
 from schemas.map import Marker, CreateCommentOpts, FilterOpts, FilterRequest
-from services.archive import ArchiveService
 from utils.constant import EXCLUDED_TABLES
 from utils.utils import map_name_to_class
 import models.maps as maps_models
@@ -65,10 +63,7 @@ class MapService:
 
     async def filters(self, opts: FilterRequest):
         map_model = self._mn_to_cl[opts.class_name]
-        results = await self._repo.filters(
-            map_model,
-            FilterOpts(filters=opts.filters)
-        )
+        results = await self._repo.filters(map_model, FilterOpts(filters=opts.filters))
 
         markers = []
         for row in results:
