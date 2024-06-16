@@ -1,0 +1,93 @@
+/* maps.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    margin: 20px 0;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+form label {
+    margin-right: 10px;
+    align-self: center;
+}
+
+form input[type="text"],
+form input[type="submit"],
+form input[type="reset"],
+form input[type="button"] {
+    margin: 0 5px;
+}
+
+#map-select {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+#map {
+    height: 600px;
+    width: 100%;
+    margin: 20px 0;
+}
+
+#progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: #f3f3f3;
+    display: none;
+}
+
+#progress-bar {
+    height: 100%;
+    background-color: #4caf50;
+}
+
+#selected-list {
+    margin: 20px;
+    padding: 0;
+    list-style: none;
+}
+
+#selected-list li {
+    padding: 5px;
+    border: 1px solid #ddd;
+    margin-bottom: 5px;
+}
+
+.dummy {
+    background: transparent;
+    border: none;
+}
+
+.dropdown-menu {
+    max-height: 200px;
+    overflow-y: auto;
+}
+.context-menu {
+    position: absolute;
+    background-color: white;
+    border: 1px solid black;
+    padding: 5px;
+    z-index: 1000;
+}
+
+.context-menu button {
+    display: block;
+    width: 100%;
+    margin-bottom: 5px;
+    cursor: pointer;
+}

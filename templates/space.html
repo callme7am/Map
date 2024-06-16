@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cosmos Analysis</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="/static/space.css" />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+    <h1>Анализ Космоса</h1>
+    <form id="upload-form" enctype="multipart/form-data">
+        <label for="file">Выберете tif файл:</label>
+        <input type="file" id="file" name="file" accept=".tif">
+        <input type="submit" value="Upload and Analyze">
+    </form>
+    <script src="/static/space.js"></script>
+</body>
+</html>

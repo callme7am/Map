@@ -1,0 +1,102 @@
+/* style.css */
+
+/* Общие стили */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  text-align: center;
+  margin: 20px 0;
+}
+
+#map {
+  height: 600px;
+  width: 100%;
+  margin: 20px 0;
+}
+
+#progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: #f3f3f3;
+  display: none;
+}
+
+#progress-bar {
+  height: 100%;
+  background-color: #4caf50;
+}
+
+/* Стили для страницы с полными картами */
+.maps-page form {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.maps-page form label {
+  margin-right: 10px;
+  align-self: center;
+}
+
+.maps-page form input[type="text"],
+.maps-page form input[type="submit"],
+.maps-page form input[type="reset"],
+.maps-page form input[type="button"] {
+  margin: 0 5px;
+}
+
+.maps-page #map-select {
+  display: block;
+  margin: 10px auto;
+  width: 300px;
+}
+
+.maps-page #selected-list {
+  margin: 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.maps-page #selected-list li {
+  padding: 5px;
+  border: 1px solid #ddd;
+  margin-bottom: 5px;
+}
+
+.dummy {
+  background: transparent;
+  border: none;
+}
+
+.selectpicker {
+  width: 300px;
+  margin: 10px auto;
+}
+
+/* Стили для страницы пересечений карт */
+.intersections-page #map-select-1 {
+  display: block;
+  margin: 10px auto;
+  width: 300px;
+}
+
+.intersections-page button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.intersections-page button:hover {
+  background-color: #45a049;
+}
