@@ -259,6 +259,30 @@ function changeMap() {
         loadMarkers(data);
         loadColumns(selectedMaps[0])
     }, 'json');
+
+}
+
+function viewLongNarrowLayers(){
+    var selectedMaps = [];
+    $('#map-select .dropdown-menu input:checked').each(function() {
+        selectedMaps.push($(this).val());
+    });
+    if (!selectedMaps || selectedMaps.length === 0) return;
+
+    $.ajax({
+        url: "/long_narrow_layers",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({
+            maps: selectedMaps,
+            threshold_ratio: 5.0
+        }),
+        dataType: "json",
+        success: function(data) {
+            loadMarkers(data);
+            loadColumns(selectedMaps[0]);
+        }
+    });
 }
 
 function updateProgressBar(processed, total, elapsed, layersArray) {

@@ -3,7 +3,6 @@ from typing import Dict, Any
 from pydantic import BaseModel
 
 
-
 class CreateCommentOpts(BaseModel):
     gid: int
     comment: str
@@ -32,3 +31,8 @@ class Marker(BaseModel):
     geom: str
     popup: str
     map_name: str | None = None
+
+
+class GetLongNarrowLayersRequest(BaseModel):
+    maps: list[str]
+    threshold_ratio: float

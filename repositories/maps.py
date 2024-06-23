@@ -9,7 +9,7 @@ from geoalchemy2.functions import (
     ST_Y,
     ST_Intersects,
     ST_IsEmpty,
-    ST_Intersection,
+    ST_Intersection, ST_Width, ST_Length, ST_Envelope, ST_Area,
 )
 from sqlalchemy import select, text, RowMapping, func, Integer, String, Numeric
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -277,3 +277,40 @@ class MapRepository:
         results = rows.mappings().all()
 
         return results
+
+    async def get_long_narrow_layers(
+        self, class_map: AbstractMap, threshold_ratio: float
+    ) -> Sequence[RowMapping]:
+        fields = [
+            ST_AsGeoJSON(column).label("geom")
+            if str(column) == f"{class_map.__tablename__}.geom"
+            else column
+            for column in class_map.__table__.columns
+        ]
+
+        fields.extend(
+            [
+                ST_X(ST_Centroid(class_map.geom)).label("lon"),
+                ST_Y(ST_Centroid(class_map.geom)).label("lat"),
+            ]
+        )
+
+        query = select(*fields).filter(
+            func.ST_Area(class_map.geom) > 0,
+            (func.ST_XMax(func.ST_Envelope(class_map.geom)) - func.ST_XMin(func.ST_Envelope(class_map.geom))) /
+            (func.ST_YMax(func.ST_Envelope(class_map.geom)) - func.ST_YMin(func.ST_Envelope(class_map.geom))) > threshold_ratio
+        )
+
+        start_time = time.monotonic()
+
+        rows = await self._db.execute(query)
+
+        elapsed_time = time.monotonic() - start_time
+
+        await self._archive_service.create(
+            CreateQueryArchiveOpts(text=str(query), elapsed_time=elapsed_time)
+        )
+
+        result = rows.mappings().all()
+
+        return result
