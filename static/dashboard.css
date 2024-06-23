@@ -1,0 +1,15 @@
+/* Стили для страницы "Дашборд" */
+#bar_chart, #area_chart {
+    width: 90%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+    table, #bar_chart, #area_chart {
+        width: 100%;
+    }
+}
