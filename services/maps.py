@@ -85,16 +85,6 @@ class MapService:
 
         return results
 
-    async def long_narrow_layers(self, maps: List[str], threshold_ratio: float) -> List[Marker]:
-        markers = []
-        for map in maps:
-            class_map = self._mn_to_cl[map]
-            result = await self._repo.get_long_narrow_layers(class_map, threshold_ratio)
-            map_markers = [self._create_marker(row, class_map) for row in result]
-            markers.extend(map_markers)
-
-        return markers
-
     def _create_marker(self, row: dict | RowMapping, map_model: AbstractMap) -> Marker:
         popup_text = map_model.get_popup(row)
         marker = Marker(

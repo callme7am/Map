@@ -3,17 +3,9 @@
 <head>
     <title>Дашборд</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/header.css" />
-    <link rel="stylesheet" href="../static/dashboard.css" />
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <h1><a style=" text-decoration: none; color: inherit;" href="/">ГИС от команды Фруктики МИСиС</a></h1>
-            <p>Профессиональное решение для работы с геоинформационными системами</p>
-        </div>
-    </header>
     <h1>Дашборд</h1>
     <div id="bar_chart">{{ bar_fig | safe }}</div>
     <div id="area_chart">{{ area_fig | safe }}</div>

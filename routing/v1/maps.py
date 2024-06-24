@@ -6,7 +6,7 @@ from starlette.responses import JSONResponse, HTMLResponse
 
 from models import maps as model_maps
 from routing.v1.static import templates
-from schemas.map import Marker, CreateCommentOpts, FilterRequest, GetLongNarrowLayersRequest
+from schemas.map import Marker, CreateCommentOpts, FilterRequest
 from services.maps import MapService
 from utils.utils import map_name_to_class
 import plotly.express as px
@@ -32,7 +32,7 @@ async def filters(req: FilterRequest, map_service: MapService = Depends()):
 
 @router.get("/search_by_address", response_model=List[Marker])
 async def search_by_address(
-        map_service: MapService = Depends(), address: str = Query(...)
+    map_service: MapService = Depends(), address: str = Query(...)
 ):
     markers = await map_service.search_by_address(address)
     return markers
@@ -40,7 +40,7 @@ async def search_by_address(
 
 @router.post("/search", response_model=List[Marker])
 async def search_by_cadastra(
-        map_service: MapService = Depends(), cadastra: str = Form(...)
+    map_service: MapService = Depends(), cadastra: str = Form(...)
 ):
     markers = await map_service.search_by_cadastra(cadastra)
     return [markers]
@@ -61,14 +61,14 @@ async def get_maps(maps: list[str] = Form(...), map_service: MapService = Depend
 
 @router.post("/comment/{gid}", response_class=JSONResponse)
 async def post_comment(
-        gid: int, comment: str = Form(...), map_service: MapService = Depends()
+    gid: int, comment: str = Form(...), map_service: MapService = Depends()
 ):
     await map_service.create_comment(CreateCommentOpts(gid=gid, comment=comment))
 
 
 @router.post("/map_intersections", response_class=JSONResponse)
 async def get_map_intersections(
-        maps: list[str] = Form(...), map_service: MapService = Depends()
+    maps: list[str] = Form(...), map_service: MapService = Depends()
 ):
     result = await map_service.maps_intersection(json.loads(maps[0]))
 
@@ -101,10 +101,3 @@ async def dashboard(request: Request, map_service: MapService = Depends()):
         "dashboard.html",
         {"request": request, "bar_fig": bar_fig_html, "area_fig": area_fig_html},
     )
-
-
-@router.post("/long_narrow_layers", response_model=List[Marker])
-async def get_long_narrow_layers(req: GetLongNarrowLayersRequest, map_service: MapService = Depends()):
-    markers = await map_service.long_narrow_layers(req.maps, req.threshold_ratio)
-
-    return markers
